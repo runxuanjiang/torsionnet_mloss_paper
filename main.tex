@@ -1,0 +1,99 @@
+\documentclass[twoside,11pt]{article}
+
+% Any additional packages needed should be included after jmlr2e.
+% Note that jmlr2e.sty includes epsfig, amssymb, natbib and graphicx,
+% and defines many common macros, such as 'proof' and 'example'.
+%
+% It also sets the bibliographystyle to plainnat; for more information on
+% natbib citation styles, see the natbib documentation, a copy of which
+% is archived at http://www.jmlr.org/format/natbib.pdf
+
+\usepackage{jmlr2e}
+
+% Definitions of handy macros can go here
+
+\newcommand{\dataset}{{\cal D}}
+\newcommand{\fracpartial}[2]{\frac{\partial #1}{\partial  #2}}
+\newcommand{\code}[1]{\texttt{#1}}
+
+% Heading arguments are {volume}{year}{pages}{date submitted}{date published}{paper id}{author-full-names}
+
+% TODO: update heading
+\jmlrheading{1}{2000}{1-48}{4/00}{10/00}{meila00a}{Marina Meil\u{a} and Michael I. Jordan}
+
+% Short headings should be running head and authors last names
+% TODO: update short heading
+\ShortHeadings{TorsionNet}{Jiang, ...}
+\firstpageno{1}
+
+\begin{document}
+
+\title{TorsionNet}
+
+% TODO: update authors
+\author{\name Runxuan Jiang \email runxuanj@umich.edu \\
+       \name Tarun Gogineni \email tgog@umich.edu \\
+       \name Josh \\
+       \name Ambuj \\
+       \name Paul \\
+       \addr
+       University of Michigan\\
+       Ann Arbor, MI 48109, USA} 
+% TODO: update editors
+\editor{TBD}
+
+\maketitle
+
+\begin{abstract}%   <- trailing '%' for backward compatibility of .sty file
+  We propose \code{TorsionNet}, an open-source deep reinforcement learning library designed for molecular conformer generation using Python. \code{TorsionNet} features several pre-built environments and baseline agents based on state-of-the-art algorithms in the field. The environments and agents are built on a modular interface, allowing users to easily build and test new implementations. Additionally, \code{TorsionNet} comes with extensive logging and visualization tools for evaluation of agents and generated conformers, as well as a toolkit for generating and modifying molecules. \code{TorsionNet} is well-tested and thoroughly documented, and is available through on PyPi and on Github: \code{https://github.com/ZimmermanGroup/conformer-ml}.
+\end{abstract}
+
+\begin{keywords}
+  reinforcement learning, deep learning, deep reinforcement learning, open source, conformer generation, computational chemistry
+\end{keywords}
+
+\section{Introduction}
+In the past decade, deep reinforcement learning has been increasingly explored in the field of computational chemistry,
+including tasks such as protein folding [], improving chemical reactions [], and conformer generation [].
+
+\section{TorsionNet Architecture}
+pass
+
+\subsection{Environments}
+pass
+
+\subsection{Molecule Generation}
+pass
+
+\subsection{Agents}
+pass
+
+\subsection{Models}
+pass
+
+\subsection{Logging and Analysis}
+pass
+\section{Future Work}
+pass
+\section{Conclusions}
+pass
+
+
+
+% Acknowledgements should go at the end, before appendices and references
+
+\acks{We would like to acknowledge ...}
+
+\vskip 0.2in
+\bibliography{reference}
+
+
+% Manual newpage inserted to improve layout of sample file - not
+% needed in general before appendices/bibliography.
+
+\newpage
+
+\appendix
+\section*{Appendix A.}
+
+\end{document}
