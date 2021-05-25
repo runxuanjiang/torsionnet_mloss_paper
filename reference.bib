@@ -1,20 +1,183 @@
-@article{chow:68,
-  title={Bayesian optimization for conformer generation},
-  author={Chan, Lucian and Hutchison, Geoffrey R and Morris, Garrett M},
-  journal={Journal of cheminformatics},
-  volume={11},
-  number={1},
-  pages={1--11},
-  year={2019},
-  publisher={BioMed Central}
+@misc{li2018foldingzero,
+  title         = {FoldingZero: Protein Folding from Scratch in Hydrophobic-Polar Model},
+  author        = {Yanjun Li and Hengtong Kang and Ketian Ye and Shuyu Yin and Xiaolin Li},
+  year          = {2018},
+  eprint        = {1812.00967},
+  archiveprefix = {arXiv},
+  primaryclass  = {cs.LG}
 }
-@article{pearl:88,
-  title={Variational encoding of complex dynamics},
-  author={Hern{\'a}ndez, Carlos X and Wayment-Steele, Hannah K and Sultan, Mohammad M and Husic, Brooke E and Pande, Vijay S},
-  journal={Physical Review E},
-  volume={97},
-  number={6},
-  pages={062412},
-  year={2018},
-  publisher={APS}
+@article{zhou2017reactions,
+  author  = {Zhou, Zhenpeng and Li, Xiaocheng and Zare, Richard N.},
+  title   = {Optimizing Chemical Reactions with Deep Reinforcement Learning},
+  journal = {ACS Central Science},
+  volume  = {3},
+  number  = {12},
+  pages   = {1337-1344},
+  year    = {2017},
+  doi     = {10.1021/acscentsci.7b00492},
+  note    = {PMID: 29296675},
+  url     = { https://doi.org/10.1021/acscentsci.7b00492},
+  eprint  = { https://doi.org/10.1021/acscentsci.7b00492}
+}
+@inproceedings{gogineni2020torsionnet,
+  author    = {Gogineni, Tarun and Xu, Ziping and Punzalan, Exequiel  and Jiang, Runxuan and Kammeraad, Joshua and Tewari, Ambuj and Zimmerman, Paul},
+  booktitle = {Advances in Neural Information Processing Systems},
+  editor    = {H. Larochelle and M. Ranzato and R. Hadsell and M. F. Balcan and H. Lin},
+  pages     = {20142--20153},
+  publisher = {Curran Associates, Inc.},
+  title     = {TorsionNet: A Reinforcement Learning Approach to Sequential Conformer Search},
+  url       = {https://proceedings.neurips.cc/paper/2020/file/e904831f48e729f9ad8355a894334700-Paper.pdf},
+  volume    = {33},
+  year      = {2020}
+}
+@inproceedings{simm2020moldesign,
+  title     = {Reinforcement Learning for Molecular Design Guided by Quantum Mechanics},
+  author    = {Simm, Gregor and Pinsler, Robert and Hernandez-Lobato, Jose Miguel},
+  booktitle = {Proceedings of the 37th International Conference on Machine Learning},
+  pages     = {8959--8969},
+  year      = {2020},
+  editor    = {Hal Daumé III and Aarti Singh},
+  volume    = {119},
+  series    = {Proceedings of Machine Learning Research},
+  month     = {13--18 Jul},
+  publisher = {PMLR},
+  pdf       = {http://proceedings.mlr.press/v119/simm20b/simm20b.pdf},
+  url       = { http://proceedings.mlr.press/v119/simm20b.html },
+  abstract  = {Automating molecular design using deep reinforcement learning (RL) holds the promise of accelerating the discovery of new chemical compounds. Existing approaches work with molecular graphs and thus ignore the location of atoms in space, which restricts them to 1) generating single organic molecules and 2) heuristic reward functions. To address this, we present a novel RL formulation for molecular design in Cartesian coordinates, thereby extending the class of molecules that can be built. Our reward function is directly based on fundamental physical properties such as the energy, which we approximate via fast quantum-chemical methods. To enable progress towards de-novo molecular design, we introduce MolGym, an RL environment comprising several challenging molecular design tasks along with baselines. In our experiments, we show that our agent can efficiently learn to solve these tasks from scratch by working in a translation and rotation invariant state-action space.}
+}
+@article{ebejer2020confgen,
+  author  = {Ebejer, Jean-Paul and Morris, Garrett M. and Deane, Charlotte M.},
+  title   = {Freely Available Conformer Generation Methods: How Good Are They?},
+  journal = {Journal of Chemical Information and Modeling},
+  volume  = {52},
+  number  = {5},
+  pages   = {1146-1158},
+  year    = {2012},
+  doi     = {10.1021/ci2004658},
+  note    = {PMID: 22482737},
+  url     = { https://doi.org/10.1021/ci2004658},
+  eprint  = { https://doi.org/10.1021/ci2004658}
+}
+@article{cole2018confgen,
+  author  = {Cole, Jason C. and Korb, Oliver and McCabe, Patrick and Read, Murray G. and Taylor, Robin},
+  title   = {Knowledge-Based Conformer Generation Using the Cambridge Structural Database},
+  journal = {Journal of Chemical Information and Modeling},
+  volume  = {58},
+  number  = {3},
+  pages   = {615-629},
+  year    = {2018},
+  doi     = {10.1021/acs.jcim.7b00697},
+  note    = {PMID: 29425456},
+  url     = { https://doi.org/10.1021/acs.jcim.7b00697},
+  eprint  = { https://doi.org/10.1021/acs.jcim.7b00697}
+}
+
+@misc{brockman2016gym,
+  author = {Greg Brockman and Vicki Cheung and Ludwig Pettersson and Jonas Schneider and John Schulman and Jie Tang and Wojciech Zaremba},
+  title  = {OpenAI Gym},
+  year   = {2016},
+  eprint = {arXiv:1606.01540}
+}
+
+@inproceedings{osband2020bsuite,
+  title     = {Behaviour Suite for Reinforcement Learning},
+  author    = {Osband, Ian and
+            Doron, Yotam and
+            Hessel, Matteo and
+            Aslanides, John and
+            Sezener, Eren and
+            Saraiva, Andre and
+            McKinney, Katrina and
+            Lattimore, Tor and
+            {Sz}epesv{\'a}ri, Csaba and
+            Singh, Satinder and
+            Van Roy, Benjamin and
+            Sutton, Richard and
+            Silver, David and
+            van Hasselt, Hado},
+  booktitle = {International Conference on Learning Representations},
+  year      = {2020},
+  url       = {https://openreview.net/forum?id=rygf-kSYwH}
+}
+
+@inproceedings{liang2018rllib,
+  title     = {{RL}lib: Abstractions for Distributed Reinforcement Learning},
+  author    = {Liang, Eric and Liaw, Richard and Nishihara, Robert and Moritz, Philipp and Fox, Roy and Goldberg, Ken and Gonzalez, Joseph and Jordan, Michael and Stoica, Ion},
+  booktitle = {Proceedings of the 35th International Conference on Machine Learning},
+  pages     = {3053--3062},
+  year      = {2018},
+  editor    = {Dy, Jennifer and Krause, Andreas},
+  volume    = {80},
+  series    = {Proceedings of Machine Learning Research},
+  month     = {10--15 Jul},
+  publisher = {PMLR},
+  pdf       = {http://proceedings.mlr.press/v80/liang18b/liang18b.pdf},
+  url       = {http://proceedings.mlr.press/v80/liang18b.html},
+  abstract  = {Reinforcement learning (RL) algorithms involve the deep nesting of highly irregular computation patterns, each of which typically exhibits opportunities for distributed computation. We argue for distributing RL components in a composable way by adapting algorithms for top-down hierarchical control, thereby encapsulating parallelism and resource requirements within short-running compute tasks. We demonstrate the benefits of this principle through RLlib: a library that provides scalable software primitives for RL. These primitives enable a broad range of algorithms to be implemented with high performance, scalability, and substantial code reuse. RLlib is available as part of the open source Ray project at http://rllib.io/.}
+}
+@misc{dhariwal2018baselines,
+  author       = {Dhariwal, Prafulla and Hesse, Christopher and Klimov, Oleg and Nichol, Alex and Plappert, Matthias and Radford, Alec and Schulman, John and Sidor, Szymon and Wu, Yuhuai and Zhokhov, Peter},
+  title        = {OpenAI Baselines},
+  year         = {2017},
+  publisher    = {GitHub},
+  journal      = {GitHub repository},
+  howpublished = {\url{https://github.com/openai/baselines}}
+}
+@inproceedings{fey2019geometric,
+  title     = {Fast Graph Representation Learning with {PyTorch Geometric}},
+  author    = {Fey, Matthias and Lenssen, Jan E.},
+  booktitle = {ICLR Workshop on Representation Learning on Graphs and Manifolds},
+  year      = {2019}
+}
+@incollection{torch,
+  title     = {PyTorch: An Imperative Style, High-Performance Deep Learning Library},
+  author    = {Paszke, Adam and Gross, Sam and Massa, Francisco and Lerer, Adam and Bradbury, James and Chanan, Gregory and Killeen, Trevor and Lin, Zeming and Gimelshein, Natalia and Antiga, Luca and Desmaison, Alban and Kopf, Andreas and Yang, Edward and DeVito, Zachary and Raison, Martin and Tejani, Alykhan and Chilamkurthy, Sasank and Steiner, Benoit and Fang, Lu and Bai, Junjie and Chintala, Soumith},
+  booktitle = {Advances in Neural Information Processing Systems 32},
+  editor    = {H. Wallach and H. Larochelle and A. Beygelzimer and F. d\textquotesingle Alch\'{e}-Buc and E. Fox and R. Garnett},
+  pages     = {8024--8035},
+  year      = {2019},
+  publisher = {Curran Associates, Inc.},
+  url       = {http://papers.neurips.cc/paper/9015-pytorch-an-imperative-style-high-performance-deep-learning-library.pdf}
+}
+@inproceedings{wu2017a2c,
+  author    = {Wu, Yuhuai and Mansimov, Elman and Grosse, Roger B and Liao, Shun and Ba, Jimmy},
+  booktitle = {Advances in Neural Information Processing Systems},
+  editor    = {I. Guyon and U. V. Luxburg and S. Bengio and H. Wallach and R. Fergus and S. Vishwanathan and R. Garnett},
+  pages     = {},
+  publisher = {Curran Associates, Inc.},
+  title     = {Scalable trust-region method for deep reinforcement learning using Kronecker-factored approximation},
+  url       = {https://proceedings.neurips.cc/paper/2017/file/361440528766bbaaaa1901845cf4152b-Paper.pdf},
+  volume    = {30},
+  year      = {2017}
+}
+@misc{schulman2017ppo,
+  title         = {Proximal Policy Optimization Algorithms},
+  author        = {John Schulman and Filip Wolski and Prafulla Dhariwal and Alec Radford and Oleg Klimov},
+  year          = {2017},
+  eprint        = {1707.06347},
+  archiveprefix = {arXiv},
+  primaryclass  = {cs.LG}
+}
+@inproceedings{gilmer2017mpnn,
+  title     = {Neural Message Passing for Quantum Chemistry},
+  author    = {Justin Gilmer and Samuel S. Schoenholz and Patrick F. Riley and Oriol Vinyals and George E. Dahl},
+  booktitle = {Proceedings of the 34th International Conference on Machine Learning},
+  pages     = {1263--1272},
+  year      = {2017},
+  editor    = {Precup, Doina and Teh, Yee Whye},
+  volume    = {70},
+  series    = {Proceedings of Machine Learning Research},
+  month     = {06--11 Aug},
+  publisher = {PMLR},
+  pdf       = {http://proceedings.mlr.press/v70/gilmer17a/gilmer17a.pdf},
+  url       = { http://proceedings.mlr.press/v70/gilmer17a.html },
+  abstract  = {Supervised learning on molecules has incredible potential to be useful in chemistry, drug discovery, and materials science. Luckily, several promising and closely related neural network models invariant to molecular symmetries have already been described in the literature. These models learn a message passing algorithm and aggregation procedure to compute a function of their entire input graph. At this point, the next step is to find a particularly effective variant of this general approach and apply it to chemical prediction benchmarks until we either solve them or reach the limits of the approach. In this paper, we reformulate existing models into a single common framework we call Message Passing Neural Networks (MPNNs) and explore additional novel variations within this framework. Using MPNNs we demonstrate state of the art results on an important molecular property prediction benchmark; these results are strong enough that we believe future work should focus on datasets with larger molecules or more accurate ground truth labels.}
+}
+@inproceedings{
+gatnn,
+title={Graph Attention Networks},
+author={Petar Veličković and Guillem Cucurull and Arantxa Casanova and Adriana Romero and Pietro Liò and Yoshua Bengio},
+booktitle={International Conference on Learning Representations},
+year={2018},
+url={https://openreview.net/forum?id=rJXMpikCZ},
 }
