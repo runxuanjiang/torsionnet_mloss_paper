@@ -17,27 +17,26 @@
 \newcommand{\dataset}{{\cal D}}
 \newcommand{\fracpartial}[2]{\frac{\partial #1}{\partial  #2}}
 \newcommand{\code}[1]{\texttt{#1}}
-
+\newcommand{\titleofpaper}{Conformer-RL}
 % Heading arguments are {volume}{year}{pages}{date submitted}{date published}{paper id}{author-full-names}
 
 % TODO: update heading
-\jmlrheading{1}{2000}{1-48}{4/00}{10/00}{meila00a}{Marina Meil\u{a} and Michael I. Jordan}
+% \jmlrheading{volume}{year}{pages}{date submitted}{date published}{paper id}{Jiang et al.}
 
 % Short headings should be running head and authors last names
-% TODO: update short heading
-\ShortHeadings{TorsionNet}{Jiang, ...}
+\ShortHeadings{\titleofpaper}{Jiang et al.}
 \firstpageno{1}
 
 \begin{document}
 
-\title{TorsionNet}
+\title{\titleofpaper}
 
 % TODO: update authors
 \author{\name Runxuan Jiang \email runxuanj@umich.edu \\
        \name Tarun Gogineni \email tgog@umich.edu \\
-       \name Josh \\
-       \name Ambuj \\
-       \name Paul \\
+       \name Joshua Kammeraad \email joshkamm@umich.edu\\
+       \name Ambuj Tewari \email tewaria@umich.edu\\
+       \name Paul Zimmerman \email paulzim@umich.edu\\
        \addr
        University of Michigan\\
        Ann Arbor, MI 48109, USA} 
@@ -47,7 +46,7 @@
 \maketitle
 
 \begin{abstract}%   <- trailing '%' for backward compatibility of .sty file
-  We propose \code{TorsionNet}, an open-source deep reinforcement learning library designed for molecular conformer generation using Python. \code{TorsionNet} features several pre-built environments and baseline agents based on state-of-the-art algorithms in the field. The environments and agents are built on a modular interface, allowing users to easily build and test new implementations. Additionally, \code{TorsionNet} comes with extensive logging and visualization tools for evaluation of agents and generated conformers, as well as a toolkit for generating and modifying molecules. \code{TorsionNet} is well-tested and thoroughly documented, and is available through on PyPi and on Github: \code{https://github.com/ZimmermanGroup/conformer-ml}.
+  We present \code{\titleofpaper}, an open-source deep reinforcement learning library designed for molecular conformer generation using Python. The library contains modular interfaces for environments and agents, allowing users to easily build and test new implementations. Also included are several pre-built pre-built environments and agents based on state-of-the-art algorithms in the field to serve as baselines. Additionally, \code{\titleofpaper} comes with extensive logging and visualization tools for evaluation of agents and generated conformers, as well as a toolkit for generating and modifying molecules. \code{\titleofpaper} is well-tested and thoroughly documented, and is available through on PyPi and on Github: \code{https://github.com/ZimmermanGroup/conformer-ml}.
 \end{abstract}
 
 \begin{keywords}
@@ -55,57 +54,72 @@
 \end{keywords}
 
 \section{Introduction}
-There have been many recent developments in the use of deep reinforcement learning applied to computational chemistry tasks \citep{li2018foldingzero,zhou2017reactions,simm2020moldesign}. One such task is conformer generation \citep{gogineni2020torsionnet}, which involves finding an ensemble of unique low-energy three-dimensional orientations, or conformers, for a given molecule \citep{ebejer2020confgen}. Efficient and accurate prediction of low-energy conformers is integral to molecular modeling, with wide applications from drug development to 3D QSAR \citep{cole2018confgen}. However, there currently exists very few open-source software libraries for deep learning applied conformer generation, and the ones that do exist are often not modular enough for further experimentation and modification. Thus, we introduce \code{TorsionNet}, a comprehensive and modular Python library for applying deep reinforcement learning to conformer generation, using PyTorch \citep{torch} for deep learning and RDKit for chemoinformatic capabilities.
+Recently, much progress has been made in the application of deep reinforcement learning to tasks in computational chemistry \citep{li2018foldingzero,zhou2017reactions,simm2020moldesign}. One task where deep reinforcement learning showed promising results is conformer generation \citep{gogineni2020torsionnet}, which involves finding an ensemble of unique low-energy three-dimensional orientations, or conformers, for a given molecule \citep{ebejer2020confgen}. Efficient and accurate prediction of low-energy conformers is integral to molecular modeling, with wide applications from drug development to 3D QSAR \citep{cole2018confgen}. However, there currently exists very few open-source software libraries for deep reinforcement learning applied conformer generation, and the ones that do exist are often not modular enough for further experimentation and modification. To address this issue, we introduce \code{\titleofpaper}, a comprehensive and modular Python library for applying deep reinforcement learning to conformer generation, using PyTorch \citep{torch} for deep learning and RDKit for chemoinformatic capabilities.
 
-Many libraries already exist that contain benchmarking experiments and baseline implementations for general deep reinforcement learning. For example, OpenAI Gym \citep{brockman2016gym} and bsuite \citep{osband2020bsuite} both contain implementations of reinforcement learning environments commonly used for benchmarking agents, such as cartpole, mountaincar, and Atari. \code{TorsionNet} seeks to fill this role within the conformer generation space by supplying pre-built environments for benchmarking agents, as well as an interface to easily customize environments for further exploration. This allows \code{TorsionNet}'s environment to be readily modified for other chemoinformatic tasks related to conformer generation, such as protein folding and reaction prediction.
+Many libraries already exist that contain benchmarking experiments and baseline implementations for general deep reinforcement learning. For example, OpenAI Gym \citep{brockman2016gym} and bsuite \citep{osband2020bsuite} both contain implementations of reinforcement learning environments commonly used for benchmarking agents, such as cartpole, mountaincar, and Atari. \code{\titleofpaper} seeks to fill this role within the conformer generation space by supplying pre-built environments for benchmarking agents. Additionally, \code{\titleofpaper} includes an environment interface to easily customize environments for further exploration. This allows \code{\titleofpaper}'s environment to be readily modified for other chemoinformatic tasks related to conformer generation, such as protein folding and reaction prediction.
 
-There are also many implementations of baseline deep reinforcement learning agents available, such as Rllib \citep{liang2018rllib} and OpenAI baselines \citep{dhariwal2018baselines}. However, due to the complex nature of molecules which are often represented by graph structures rather than vectors, a large amount of modification and setup work is required to adapt these baseline libraries to work with molecule environments. Within \code{TorsionNet}, several baseline training algorithms are implemented to accomodate generalized observation spaces, as well as baseline neural networks for molecule inputs built with graph neural network (GNN) components using PyTorch Geometric \citep{fey2019geometric}.
+There are also many implementations of baseline deep reinforcement learning agents available, such as Rllib \citep{liang2018rllib} and OpenAI baselines \citep{dhariwal2018baselines}. However, due to the complex nature of molecules which are often represented by graph structures rather than vectors, a large amount of modification and setup work is required to adapt these baseline libraries to work with molecule environments. Within \code{\titleofpaper}, we include a general agent base class for building agents compatible with conformer generation environments, as well as several baseline reinforcement learning algorithms. Also included are baseline implementations neural network architectures for molecule inputs built with graph neural network (GNN) components using PyTorch Geometric \citep{fey2019geometric}.
 
-Additionally, \code{TorsionNet} provides extensive logging capabilities and an analysis module for recording and visualizing training results, including conformer-generation specific metrics and visuals.
+Additionally, \code{\titleofpaper} provides extensive logging capabilities and an analysis module for recording and visualizing training results, including conformer-generation specific metrics and visuals.
 
-\section{TorsionNet Architecture}
-
-  \begin{figure}[h]
-    \centering
-    \includegraphics[width=\textwidth]{architecture.png}
-    \caption{Architecture of \code{TorsionNet}. Agent components are colored blue, environment components are colored green, and logging/analysis componenets are colored yellow.}
-  \end{figure}
+\section{\titleofpaper Architecture}
+\begin{figure}[h]
+  \centering
+  \includegraphics[width=\textwidth]{architectures.jpg}
+  \caption{Architecture of \code{\titleofpaper}. Agent components are colored blue, environment components are colored green, and logging/analysis componenets are colored yellow.}
+  \label{fig:architecture}
+\end{figure}
+  A visual representation of the architecture can be seen in figure \ref{fig:architecture}.
 
 \subsection{Environments}
-All \code{TorsionNet} environments are classes built by overriding methods of the \code{ConformerEnv} base class. The main methods to be overridden are the \code{\_step(action)} method, which specifies how the environment will modify its state/molecule given an action input, the \code{\_obs()} method, which converts the environment's state into an input for a neural network, and the \code{\_reward()} method, which calculates the reward from the current state of the environment. Other functions such as \code{\_done()}, which determines the end of an episode in the environment, and \code{reset()} can also be overridden at the user's convenience.
+\code{\titleofpaper} environments are classes built on top of the \code{ConformerEnv} base class. The methods in \code{ConformerEnv} are implemented in a way so that each method corresponds to a different component within the environment, and is independent to the behavior of the other components. The main components include:
+\begin{itemize}
+  \item \textbf{Action Handler} is implemented by overriding the \code{\_step(action)} method. The action handler determines how the environment processes an incoming action. Usually this corresponds to generating a new conformer based on the action.
+  \item \textbf{Reward Handler} is implemented by overriding the \code{\_reward()} method. The reward handler returns a reward based on the current state of the environment.
+  \item \textbf{Observation Handler} is implemented by overriding the \code{\_obs()} method. The observation handler returns an observation object based on the current state of the environment and is a compatible input for the neural network of the agent.
+\end{itemize}
+Other class methods of \code{ConformerEnv} can also be overridden at the user's convenience. For example, if the user would like to keep track of the number of conformers generated with an energy below a certain threshold for each episode, they may add a member variable \code{self.confs\_below\_threshold = 0} to the \code{reset()} method, and then update \code{self.confs\_below\_threshold} within the action handler.
 
-To demonstrate the flexibility of the \code{ConforomerEnv} interface, \code{TorsionNet} implements several different mixin classes overriding one of the previously mentioned methods, which can then be mixed and matched to form new environments, some of which are included as pre-built environments in \code{TorsionNet}, including the environment used in \citet{gogineni2020torsionnet}.
+For each environment component, \code{\titleofpaper} implements several pre-built options in the form of mixin classes. Due to the flexibility of the design of \code{ConformerEnv}, different handlers can be mixed and matched to form unique environments, and new environments for tasks related to conformer generation, such as protein folding, can be easily built by implementing custom versions of the components.
+
+\code{\titleofpaper} also includes wrappers for executing multiple environments in parallel. 
 
   \subsubsection{Molecule Generation}
-  All \code{TorsionNet} environments are initialized with a \code{MolConfig} object, which specifies the molecule to be used in the environment as well as any molecule-specific parameters needed by the environment. This allows environments to be compatible with any molecule, including user-generated molecules.
+  \code{\titleofpaper} environments are designed to configurable with different molecules, including user-generated ones. Environments are initizlied with a \code{MolConfig} object, which specifies the RDKit molecule to be used in the environment and any molecule-specific parameters.
 
-  Additionally, \code{TorsionNet} contains scripts for generating \code{MolConfig} objects for several simple molecules and molecule benchmarks found in \citet{gogineni2020torsionnet}, such as branched alkanes, lignin, and more.
+  For convenience, \code{\titleofpaper} contains scripts for generating \code{MolConfig} objects for several simple molecules and molecule benchmarks found in \citet{gogineni2020torsionnet}, such as branched alkanes, lignin, and more.
 
-\code{TorsionNet} also includes wrappers for executing multiple environments in parallel. 
+\subsection{Agents and Models}
+Agents in \code{\titleofpaper} are classes inheriting from the \code{BaseAgent} base class. Agents are initialized with a \code{Config} object, which specifies the neural network model to be used, training environment, optimize function, and other hyperparameters. Agents can also be configured with an evaluation environment, in which the agent will only evaluate on but not train on. The base class also handles logging. Custom agents can be created by overriding the \code{step()} method of \code{BaseAgent}, which corresponds to one iteration of interacting with the environment to collect samples and then training on those samples.
 
-\subsection{Agents}
-  \code{TorsionNet} contains implementations of several baseline agents, as well as an interface for creating custom agents \code{BaseAgent}. Agents implement the \code{step()} method of \code{BaseAgent}, which correspond to one iteration of interacting with the environment to collect samples and then training on those samples.
+\code{\titleofpaper} implements several baseline built-in agents, including recurrent and non-recurrent implementations of advantage actor critic (A2C) \citep{wu2017a2c} and proximal policy optimization (PPO) \citep{schulman2017ppo}.
 
-  Agents are initialized with a \code{Config} object, which specifies the neural network to be used, as well as training hyperparameters. Agents can also be configured with an evaluation environment, in which the agent will not interact with while training but will be evaluated on the evaluation environment every certain number of steps.
-
-  \code{TorsionNet} implements several baseline built-in agents, including recurrent and non-recurrent implementations of advantage actor critic (A2C) \citep{wu2017a2c} and proximal policy optimization (PPO) \citep{schulman2017ppo}.
-
-  \subsubsection{Models}
-    \code{TorsionNet} implements several baseline built-in neural network models, including recurrent and non-recurrent versions of the \code{TorsionNet} model from \citep{gogineni2020torsionnet} which utilizes a message passing neural network (MPNN) \citep{gilmer2017mpnn}, as well as similar graph networks that utilize graph attention networks \citep{gatnn}.
-
+\code{\titleofpaper} implements several baseline built-in neural network models, including recurrent and non-recurrent versions of the \code{\titleofpaper} model from \citep{gogineni2020torsionnet} which utilizes a message passing neural network (MPNN) \citep{gilmer2017mpnn}, as well as similar graph networks that utilize graph attention networks \citep{gatnn}.
 
 \subsection{Logging and Analysis}
+The \code{\titleofpaper} library contains two types of loggers:
+\begin{itemize}
+  \item \code{TrainLogger} is designed to record information from the agent during training, such as (but not limited to) total reward per episode, training loss, runtime, and memory used. \code{TrainLogger} supports logging data directly to TensorBoard \citep{tensorflow2015-whitepaper}, where the data can be visualized in real time and downloaded if needed.
+  \item \code{EnvLogger} is designed to record environment information across a single episode, such as (but not limited to) the conformers generated, and the energy of each generated conformer. \code{EnvLogger} supports saving the per-episode data as a \code{.pickle} file, as well as saving each generated molecule conformer separately as a \code{.mol} file. The saved files can then be loaded into a notebook and visualized by \code{\titleofpaper}'s analysis toolkit.
+\end{itemize}
+Both loggers are integrated into the \code{BaseAgent} and \code{ConformerEnv} interfaces, and are readily accessible when writing new agents or environments.
 
-\section{Future Work}
-pass
-\section{Conclusions}
-pass
+\code{\titleofpaper} contains an analysis toolkit for calculating conformer-related metrics and visualizing results. The toolkit is designed to be used in a notebook and uses seaborn \citep{waskom2021seaborn} to generate figures and molecule visualization tools to generate interactive three-dimensional visuals for molecule conformers.
+
+\section{Usage and Documentation}
+\code{\titleofpaper} provides a detailed API reference for all functions, classes, and non-private class methods in the library. We also provide eight example scripts for training pre-built agents on pre-built environments, and a jupyter notebook showing example usage of the analysis toolkit on logged data. The quick start section of the documentation covers how to run the training scripts, switch between prebuilt environments and agents, and tuning hyperparameters. Finally, we provide a guide on how to build a custom environment from scratch, and train an agent on the environment.
+
+\section{Conclusion}
+\code{\titleofpaper} is a comprehensive library with tools for each step of the pipeline for training and testing deep reinforcement learning agents in the conformer generation task, including generating molecules and building environments, building and training agents, and logging/visualizing results. \code{\titleofpaper}'s modular interfaces and accessible APIs can increase research reproducibility and stimulate discovery in conformer generation.
 
 
 
+\newpage
 % Acknowledgements should go at the end, before appendices and references
 
-\acks{We would like to acknowledge ...}
+\acks{
+  We thank the NSF grant \emph{RTG: Understanding dynamic big data with complex structure (DMS 1646108)}.
+}
 
 \vskip 0.2in
 \bibliography{reference}
@@ -116,7 +130,7 @@ pass
 
 \newpage
 
-\appendix
-\section*{Appendix A.}
+% \appendix
+% \section*{Appendix A.}
 
 \end{document}
