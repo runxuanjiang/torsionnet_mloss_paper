@@ -35,6 +35,7 @@
 \author{\name Runxuan Jiang \email runxuanj@umich.edu \\
        \name Tarun Gogineni \email tgog@umich.edu \\
        \name Joshua Kammeraad \email joshkamm@umich.edu\\
+       \name  Yife He \\
        \name Ambuj Tewari \email tewaria@umich.edu\\
        \name Paul Zimmerman \email paulzim@umich.edu\\
        \addr
@@ -74,13 +75,13 @@ Additionally, \code{\titleofpaper} provides extensive logging capabilities and a
 \subsection{Environments}
 \code{\titleofpaper} environments are classes built on top of the \code{ConformerEnv} base class. The methods in \code{ConformerEnv} are implemented in a way so that each method corresponds to a different component within the environment, and is independent to the behavior of the other components. The main components include:
 \begin{itemize}
-  \item \textbf{Action Handler} is implemented by overriding the \code{\_step(action)} method. The action handler determines how the environment processes an incoming action. Usually this corresponds to generating a new conformer based on the action.
-  \item \textbf{Reward Handler} is implemented by overriding the \code{\_reward()} method. The reward handler returns a reward based on the current state of the environment.
-  \item \textbf{Observation Handler} is implemented by overriding the \code{\_obs()} method. The observation handler returns an observation object based on the current state of the environment and is a compatible input for the neural network of the agent.
+  \item \textbf{Action Handler} is implemented by overriding the \code{\_step(action)} method. The action handler determines how the molecule is modified given an incoming action. For example, one of the pre-built action handlers takes in an array of length equal to the number of torsions in the molecule, and sets the torsion angle of each torsion to the corresponding array element in degrees.
+  \item \textbf{Reward Handler} is implemented by overriding the \code{\_reward()} method. The reward handler returns a reward based on the current configuration of the molecule. An example is the Gibbs score from \citet{gogineni2020torsionnet}.
+  \item \textbf{Observation Handler} is implemented by overriding the \code{\_obs()} method. The observation handler returns an observation object representing the current configuration of the molecule and is a compatible input for the neural network of the agent. An example is representing the molecule as a PyTorch Geometric graph where the nodes contain the three-dimensional coordinates for each atom, and the edges represents bonds between atoms.
 \end{itemize}
 Other class methods of \code{ConformerEnv} can also be overridden at the user's convenience. For example, if the user would like to keep track of the number of conformers generated with an energy below a certain threshold for each episode, they may add a member variable \code{self.confs\_below\_threshold = 0} to the \code{reset()} method, and then update \code{self.confs\_below\_threshold} within the action handler.
 
-For each environment component, \code{\titleofpaper} implements several pre-built options in the form of mixin classes. Due to the flexibility of the design of \code{ConformerEnv}, different handlers can be mixed and matched to form unique environments, and new environments for tasks related to conformer generation, such as protein folding, can be easily built by implementing custom versions of the components.
+For each environment component, \code{\titleofpaper} implements several pre-built options in the form of mixin classes. Due to the flexibility of the design of \code{ConformerEnv}, different handlers can be mixed and matched to form unique environments, and new environments for tasks related to conformer generation, such as protein folding and chemical reaction optimization, can be easily built by implementing custom versions of the components.
 
 \code{\titleofpaper} also includes wrappers for executing multiple environments in parallel. 
 
@@ -92,9 +93,9 @@ For each environment component, \code{\titleofpaper} implements several pre-buil
 \subsection{Agents and Models}
 Agents in \code{\titleofpaper} are classes inheriting from the \code{BaseAgent} base class. Agents are initialized with a \code{Config} object, which specifies the neural network model to be used, training environment, optimize function, and other hyperparameters. Agents can also be configured with an evaluation environment, in which the agent will only evaluate on but not train on. The base class also handles logging. Custom agents can be created by overriding the \code{step()} method of \code{BaseAgent}, which corresponds to one iteration of interacting with the environment to collect samples and then training on those samples.
 
-\code{\titleofpaper} implements several baseline built-in agents, including recurrent and non-recurrent implementations of advantage actor critic (A2C) \citep{wu2017a2c} and proximal policy optimization (PPO) \citep{schulman2017ppo}.
+\code{\titleofpaper} implements several pre-built agents, including recurrent and non-recurrent implementations of advantage actor critic (A2C) \citep{wu2017a2c} and proximal policy optimization (PPO) \citep{schulman2017ppo}. The pre-built agents also serve as examples for building custom agents, as they are implemented on top of the \code{BaseAgent} base class.
 
-\code{\titleofpaper} implements several baseline built-in neural network models, including recurrent and non-recurrent versions of the \code{\titleofpaper} model from \citep{gogineni2020torsionnet} which utilizes a message passing neural network (MPNN) \citep{gilmer2017mpnn}, as well as similar graph networks that utilize graph attention networks \citep{gatnn}.
+Implementations of several neural network architectures, including recurrent and non-recurrent versions of the \code{\titleofpaper} model from \citep{gogineni2020torsionnet} which utilizes a message passing neural network (MPNN) \citep{gilmer2017mpnn}, as well as similar graph networks that utilize graph attention networks \citep{gatnn}.
 
 \subsection{Logging and Analysis}
 The \code{\titleofpaper} library contains two types of loggers:
