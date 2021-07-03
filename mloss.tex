@@ -10,6 +10,7 @@
 
 \usepackage{jmlr2e}
 \usepackage{graphicx}
+\usepackage{xcolor} % for color names
 \graphicspath{{./}}
 
 % Definitions of handy macros can go here
@@ -27,15 +28,27 @@
 \ShortHeadings{\titleofpaper}{Jiang et al.}
 \firstpageno{1}
 
+
+\newcount\comments  % 0 suppresses notes to ourselves in text
+\comments=1  % TODO: change to 0 for final version
+\newcommand{\genComment}[2]{\ifnum\comments=1{\color{#1}{\textsf{\footnotesize #2}}}\fi}
+
+\newcommand{\ambuj}[1] {\genComment{red}{[AT: #1]}}
+\newcommand{\tarun}[1] {\genComment{blue}{[TG: #1]}}
+\newcommand{\ziping}[1]{\genComment{green}{[ZP:#1]}}
+\newcommand{\josh}[1]{\genComment{purple}{[JK:#1]}}
+\newcommand{\exequiel}[1]{\genComment{orange}{[EP:#1]}}
+\newcommand{\paul}[1]{\genComment{brown}{[PZ:#1]}}
+
 \begin{document}
 
-\title{\titleofpaper}
+\title{\titleofpaper: A Deep Reinforcement Learning Library for Conformer Generation}
 
 % TODO: update authors
 \author{\name Runxuan Jiang \email runxuanj@umich.edu \\
        \name Tarun Gogineni \email tgog@umich.edu \\
        \name Joshua Kammeraad \email joshkamm@umich.edu\\
-       \name  Yife He \\
+       \name  Yifei He \email heyifei@umich.edu \\
        \name Ambuj Tewari \email tewaria@umich.edu\\
        \name Paul Zimmerman \email paulzim@umich.edu\\
        \addr
@@ -47,37 +60,38 @@
 \maketitle
 
 \begin{abstract}%   <- trailing '%' for backward compatibility of .sty file
-  We present \code{\titleofpaper}, an open-source deep reinforcement learning library designed for molecular conformer generation using Python. The library contains modular interfaces for environments and agents, allowing users to easily build and test new implementations. Also included are several pre-built pre-built environments and agents based on state-of-the-art algorithms in the field to serve as baselines. Additionally, \code{\titleofpaper} comes with extensive logging and visualization tools for evaluation of agents and generated conformers, as well as a toolkit for generating and modifying molecules. \code{\titleofpaper} is well-tested and thoroughly documented, and is available through on PyPi and on Github: \code{https://github.com/ZimmermanGroup/conformer-ml}.
+  We present \code{\titleofpaper}, an open-source deep reinforcement learning library designed for molecular conformer generation using Python. The library contains modular interfaces for environments and agents, allowing users to easily build and test new implementations. Also included are several pre-built environments and agents based on state-of-the-art algorithms in the field to serve as baselines. Additionally, \code{\titleofpaper} comes with extensive logging and visualization tools for evaluation of agents and generated conformers, as well as a toolkit for generating and modifying molecules. \code{\titleofpaper} is well-tested and thoroughly documented, and is available through on PyPi and on Github: \url{https://github.com/ZimmermanGroup/conformer-rl}.
 \end{abstract}
 
 \begin{keywords}
-  reinforcement learning, deep learning, deep reinforcement learning, open source, conformer generation, computational chemistry
+  deep reinforcement learning, graph neural network, open source, conformer generation, computational chemistry
 \end{keywords}
 
 \section{Introduction}
-Recently, much progress has been made in the application of deep reinforcement learning to tasks in computational chemistry \citep{li2018foldingzero,zhou2017reactions,simm2020moldesign}. One task where deep reinforcement learning showed promising results is conformer generation \citep{gogineni2020torsionnet}, which involves finding an ensemble of unique low-energy three-dimensional orientations, or conformers, for a given molecule \citep{ebejer2020confgen}. Efficient and accurate prediction of low-energy conformers is integral to molecular modeling, with wide applications from drug development to 3D QSAR \citep{cole2018confgen}. However, there currently exists very few open-source software libraries for deep reinforcement learning applied conformer generation, and the ones that do exist are often not modular enough for further experimentation and modification. To address this issue, we introduce \code{\titleofpaper}, a comprehensive and modular Python library for applying deep reinforcement learning to conformer generation, using PyTorch \citep{torch} for deep learning and RDKit for chemoinformatic capabilities.
+Recently, much progress has been made in the application of deep reinforcement learning to tasks in computational chemistry \citep{li2018foldingzero,zhou2017reactions,simm2020moldesign}. One task where deep reinforcement learning showed promising results is conformer generation \citep{gogineni2020torsionnet}, which involves finding an ensemble of unique low-energy three-dimensional orientations, or conformers, for a given molecule \citep{ebejer2020confgen}. Efficient and accurate prediction of low-energy conformers is integral to molecular modeling, with wide applications from drug development to 3D QSAR \citep{cole2018confgen}. However, there currently exist very few open-source software libraries for deep reinforcement learning applied to conformer generation, and the ones that do exist are often not modular enough for further experimentation and modification \tarun{we should cite an example of one that does exist with these shortcomings}. To address this issue, we introduce \code{\titleofpaper}, a comprehensive and modular Python library for applying deep reinforcement learning to conformer generation, using PyTorch \citep{torch} for deep learning and RDKit for chemoinformatic capabilities.
 
 Many libraries already exist that contain benchmarking experiments and baseline implementations for general deep reinforcement learning. For example, OpenAI Gym \citep{brockman2016gym} and bsuite \citep{osband2020bsuite} both contain implementations of reinforcement learning environments commonly used for benchmarking agents, such as cartpole, mountaincar, and Atari. \code{\titleofpaper} seeks to fill this role within the conformer generation space by supplying pre-built environments for benchmarking agents. Additionally, \code{\titleofpaper} includes an environment interface to easily customize environments for further exploration. This allows \code{\titleofpaper}'s environment to be readily modified for other chemoinformatic tasks related to conformer generation, such as protein folding and reaction prediction.
 
-There are also many implementations of baseline deep reinforcement learning agents available, such as Rllib \citep{liang2018rllib} and OpenAI baselines \citep{dhariwal2018baselines}. However, due to the complex nature of molecules which are often represented by graph structures rather than vectors, a large amount of modification and setup work is required to adapt these baseline libraries to work with molecule environments. Within \code{\titleofpaper}, we include a general agent base class for building agents compatible with conformer generation environments, as well as several baseline reinforcement learning algorithms. Also included are baseline implementations neural network architectures for molecule inputs built with graph neural network (GNN) components using PyTorch Geometric \citep{fey2019geometric}.
+There are also many implementations of baseline deep reinforcement learning agents available, such as RLlib \citep{liang2018rllib} and OpenAI baselines \citep{dhariwal2018baselines}. However, since the feature rich graphical representation of molecules is often unsupported out of the box in fixed vector state-based libraries, a large amount of modification and setup work is required to adapt these baseline libraries to work with molecular environments. Within \code{\titleofpaper}, we include a general agent base class for building agents compatible with conformer generation environments, as well as several baseline reinforcement learning algorithms. Also included are baseline implementations of neural network architectures for molecule inputs built with graph neural network (GNN) components using PyTorch Geometric \citep{fey2019geometric}.
 
 Additionally, \code{\titleofpaper} provides extensive logging capabilities and an analysis module for recording and visualizing training results, including conformer-generation specific metrics and visuals.
 
-\section{\titleofpaper \space Architecture}
 \begin{figure}[h]
   \centering
   \includegraphics[width=\textwidth]{architectures.jpg}
   \caption{Architecture of \code{\titleofpaper}. Agent components are colored blue, environment components are colored green, and logging/analysis componenets are colored yellow.}
   \label{fig:architecture}
 \end{figure}
-  A visual representation of the architecture can be seen in figure \ref{fig:architecture}.
+
+\section{\titleofpaper \space Architecture}
+  A visual representation of the architecture can be seen in figure \tarun{overall thoughts: we should describe more of the specific utils and conformer generation conveniences that we created, such as the molecule observation environments, or the reward counting via built in conformer rejection. As it stands most of the components we discuss here are not unique to our library.} \ref{fig:architecture}.
 
 \subsection{Environments}
 \code{\titleofpaper} environments are classes built on top of the \code{ConformerEnv} base class. The methods in \code{ConformerEnv} are implemented in a way so that each method corresponds to a different component within the environment, and is independent to the behavior of the other components. The main components include:
 \begin{itemize}
   \item \textbf{Action Handler} is implemented by overriding the \code{\_step(action)} method. The action handler determines how the molecule is modified given an incoming action. For example, one of the pre-built action handlers takes in an array of length equal to the number of torsions in the molecule, and sets the torsion angle of each torsion to the corresponding array element in degrees.
   \item \textbf{Reward Handler} is implemented by overriding the \code{\_reward()} method. The reward handler returns a reward based on the current configuration of the molecule. An example is the Gibbs score from \citet{gogineni2020torsionnet}.
-  \item \textbf{Observation Handler} is implemented by overriding the \code{\_obs()} method. The observation handler returns an observation object representing the current configuration of the molecule and is a compatible input for the neural network of the agent. An example is representing the molecule as a PyTorch Geometric graph where the nodes contain the three-dimensional coordinates for each atom, and the edges represents bonds between atoms.
+  \item \textbf{Observation Handler} is implemented by overriding the \code{\_obs()} method. The observation handler returns an observation object representing the current configuration of the molecule and is a compatible input for the neural network of the agent. An example is representing the molecule as a PyTorch Geometric graph where the nodes contain the three-dimensional coordinates for each atom, and the edges represents bonds between atoms. \tarun{should we describe also the normalizations and extra edges we add by preprocessing or would that be out of the scope}
 \end{itemize}
 Other class methods of \code{ConformerEnv} can also be overridden at the user's convenience. For example, if the user would like to keep track of the number of conformers generated with an energy below a certain threshold for each episode, they may add a member variable \code{self.confs\_below\_threshold = 0} to the \code{reset()} method, and then update \code{self.confs\_below\_threshold} within the action handler.
 
@@ -86,9 +100,11 @@ For each environment component, \code{\titleofpaper} implements several pre-buil
 \code{\titleofpaper} also includes wrappers for executing multiple environments in parallel. 
 
   \subsubsection{Molecule Generation}
-  \code{\titleofpaper} environments are designed to configurable with different molecules, including user-generated ones. Environments are initizlied with a \code{MolConfig} object, which specifies the RDKit molecule to be used in the environment and any molecule-specific parameters.
+  \code{\titleofpaper} environments are designed to configurable with different molecules, including user-generated ones. Environments are initialized with a \code{MolConfig} object, which specifies the RDKit molecule to be used in the environment and any molecule-specific parameters.
 
-  For convenience, \code{\titleofpaper} contains scripts for generating \code{MolConfig} objects for several simple molecules and molecule benchmarks found in \citet{gogineni2020torsionnet}, such as branched alkanes, lignin, and more.
+  For convenience, \code{\titleofpaper} contains scripts for generating \code{MolConfig} objects for several simple molecules and molecule benchmarks found in \citet{gogineni2020torsionnet}, such as branched alkanes, lignin, and more. Molecule generation scripts utilize several libraries depending on the molecule, including stk \citep{Turcani2021stk}, stko \citep{Tarzia2021stko} and Lignin-KMC \citep{Orella2019ligninkmc}, with several options for varying molecule size and structure.
+  
+  % \josh{Citations for dependencies: is the install\_requires in setup.py the full list of direct dependencies? Could be good to look through and check that we aren't missing important ones to cite if we haven't already. I was thinking it'd be good to include citations for stk and stko especially since the authors have been responsive and helpful, and this seems like a good place. \url{https://github.com/lukasturcani/stk}, \url{https://aip.scitation.org/doi/10.1063/5.0049708}. stko doesn't have a paper but we can cite the GitHub: \url{https://github.com/JelfsMaterialsGroup/stko}}.
 
 \subsection{Agents and Models}
 Agents in \code{\titleofpaper} are classes inheriting from the \code{BaseAgent} base class. Agents are initialized with a \code{Config} object, which specifies the neural network model to be used, training environment, optimize function, and other hyperparameters. Agents can also be configured with an evaluation environment, in which the agent will only evaluate on but not train on. The base class also handles logging. Custom agents can be created by overriding the \code{step()} method of \code{BaseAgent}, which corresponds to one iteration of interacting with the environment to collect samples and then training on those samples.
@@ -105,7 +121,7 @@ The \code{\titleofpaper} library contains two types of loggers:
 \end{itemize}
 Both loggers are integrated into the \code{BaseAgent} and \code{ConformerEnv} interfaces, and are readily accessible when writing new agents or environments.
 
-\code{\titleofpaper} contains an analysis toolkit for calculating conformer-related metrics and visualizing results. The toolkit is designed to be used in a notebook and uses seaborn \citep{waskom2021seaborn} to generate figures and molecule visualization tools to generate interactive three-dimensional visuals for molecule conformers.
+\code{\titleofpaper} contains an analysis toolkit for calculating conformer-related metrics and visualizing results. The toolkit is designed to be used in a notebook and uses \code{seaborn} \citep{waskom2021seaborn} to generate figures and molecule visualization tools to generate interactive three-dimensional visuals for molecule conformers.
 
 \section{Usage and Documentation}
 \code{\titleofpaper} provides a detailed API reference for all functions, classes, and non-private class methods in the library. We also provide eight example scripts for training pre-built agents on pre-built environments, and a jupyter notebook showing example usage of the analysis toolkit on logged data. The quick start section of the documentation covers how to run the training scripts, switch between prebuilt environments and agents, and tuning hyperparameters. Finally, we provide a guide on how to build a custom environment from scratch, and train an agent on the environment.
@@ -119,7 +135,7 @@ Both loggers are integrated into the \code{BaseAgent} and \code{ConformerEnv} in
 % Acknowledgements should go at the end, before appendices and references
 
 \acks{
-  We thank the NSF grant \emph{RTG: Understanding dynamic big data with complex structure (DMS 1646108)}.
+  We acknowledge the support of NSF via grants DMS-1646108 and IIS-2007055.
 }
 
 \vskip 0.2in
